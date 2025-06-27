@@ -9,13 +9,17 @@ import java.util.List;
 @Service
 public class ProductService {
     private final List<Product> products = new ArrayList<>();
+    private long nextId = 1L; // 🔸 id 자동 증가용 변수
+
     public ProductService() {
     }
+
     public List<Product> getAllProducts() {
         return products;
     }
 
     public void addProduct(Product product) {
+        product.setId(nextId++);
         products.add(product);
     }
 
@@ -33,4 +37,15 @@ public class ProductService {
             }
         }
     }
+
+    public Product getProductById(Long id) {
+        for (Product product : products) {
+            if (product.getId().equals(id)) {
+                return product;
+            }
+        }
+        return null;
+    }
 }
+
+
